@@ -5,16 +5,25 @@ import TodoList from "./components/TodoList";
 function App() {
   const [input, setInput] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleInput = (e) => {
     const inputValue = e.target.value;
-    // console.log(inputValue);
     setInput(inputValue);
+
+    // if (inputValue === "") {
+    //   setIsDisabled(true);
+    // } else {
+    //   setIsDisabled(false);
+    // }
   };
 
   const handleAdd = () => {
-    // console.log([input, ...todoList]);
-
+    // console.log(input);
+    if (input === "") {
+      return;
+    }
+    console.log([input, ...todoList]);
     setTodoList([...todoList, input]);
     setInput("");
   };
@@ -35,9 +44,13 @@ function App() {
               placeholder="할일을 입력하세요"
               value={input}
               onChange={handleInput}
-              onKeyPress={handleOnKeyPress}
+              onKeyDown={handleOnKeyPress}
             />
-            <button className="App-button" onClick={handleAdd}>
+            <button
+              className="App-button"
+              onClick={handleAdd}
+              disabled={isDisabled}
+            >
               +
             </button>
           </div>
